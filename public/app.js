@@ -110,7 +110,16 @@ async function obtenerUsuarios() {
     }
 }
 
-// AGREGAR
+function resetFormulario() {
+    document.getElementById("usuarioId").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("error-nombre").textContent = "";
+    document.getElementById("error-correo").textContent = "";
+    document.getElementById("btn-text").textContent = "[ AGREGAR ]";
+    document.getElementById("btn-cancel").style.display = "none";
+}
+
 async function agregarUsuario() {
     const nombre = document.getElementById("nombre").value.trim();
     const correo = document.getElementById("correo").value.trim();
@@ -133,16 +142,66 @@ async function agregarUsuario() {
             return;
         }
         
-        document.getElementById("nombre").value = "";
-        document.getElementById("correo").value = "";
-        document.getElementById("error-nombre").textContent = "";
-        document.getElementById("error-correo").textContent = "";
-        
+        resetFormulario();
         mostrarMensaje("[+] Usuario registrado exitosamente");
         obtenerUsuarios();
     } catch (error) {
         mostrarMensaje(">> ERROR: Fallo la conexion", "error");
         console.error(error);
+    }
+}
+
+function entrarModoEdicion(id, nombre, correo) {
+    document.getElementById("usuarioId").value = id;
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("correo").value = correo;
+    document.getElementById("btn-text").textContent = "[ ACTUALIZAR ]";
+    document.getElementById("btn-cancel").style.display = "inline-block";
+}
+
+function cancelarEdicion() {
+    resetFormulario();
+    mostrarMensaje("[*] Edicion cancelada", "error");
+}
+
+async function actualizarUsuario() {
+    const id = document.getElementById("usuarioId").value;
+    const nombre = document.getElementById("nombre").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+
+    if (!validarInputs(nombre, correo)) {
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API}/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ nombre, correo })
+        });
+
+        if (!res.ok) {
+            mostrarMensaje(">> ERROR: No se pudo actualizar", "error");
+            return;
+        }
+
+        resetFormulario();
+        mostrarMensaje("[*] Usuario actualizado exitosamente");
+        obtenerUsuarios();
+    } catch (error) {
+        mostrarMensaje(">> ERROR: Fallo la conexion", "error");
+        console.error(error);
+    }
+}
+
+function guardarUsuario() {
+    const id = document.getElementById("usuarioId").value;
+    if (id) {
+        actualizarUsuario();
+    } else {
+        agregarUsuario();
     }
 }
 
@@ -171,40 +230,9 @@ async function eliminar(id) {
 }
 
 // EDITAR
-async function editarUsuario(id, nombreActual, correoActual) {
-    console.log("[app.js] editarUsuario", id, nombreActual, correoActual);
-    const nuevoNombre = prompt("Editar nombre:", nombreActual);
-    const nuevoCorreo = prompt("Editar email:", correoActual);
-    
-    if (!nuevoNombre || !nuevoCorreo) {
-        mostrarMensaje(">> Operacion cancelada", "error");
-        return;
-    }
-    
-    if (!validarInputs(nuevoNombre, nuevoCorreo)) {
-        return;
-    }
-    
-    try {
-        const res = await fetch(`${API}/update/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ nombre: nuevoNombre, correo: nuevoCorreo })
-        });
-        
-        if (!res.ok) {
-            mostrarMensaje(">> ERROR: No se pudo actualizar", "error");
-            return;
-        }
-        
-        mostrarMensaje("[*] Usuario actualizado exitosamente");
-        obtenerUsuarios();
-    } catch (error) {
-        mostrarMensaje(">> ERROR: Fallo la conexion", "error");
-        console.error(error);
-    }
+function editarUsuario(id, nombreActual, correoActual) {
+    console.log("[app.js] editarUsuario con modo formulario", id, nombreActual, correoActual);
+    entrarModoEdicion(id, nombreActual, correoActual);
 }
 
 // Test editar primer usuario (fuerza ejecución edit) y carga inicial

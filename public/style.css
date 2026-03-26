@@ -269,6 +269,30 @@ input:focus ~ .input-border {
     box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 30px rgba(0, 212, 255, 0.3);
 }
 
+.btn-cancel {
+    background: transparent;
+    color: #ffb400;
+    border: 1px solid #ffb400;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 12px;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 180, 0, 0.2);
+}
+
+.actions-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .success-msg {
     color: var(--neon-lime);
     font-size: 0.9em;
