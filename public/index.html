@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Usuarios - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="background-lights"></div>
+
+<div class="wrapper">
+    <div class="header-glow"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <h1><span class="glow-text">USUARIOS</span></h1>
+            <p class="tagline">Sistema de Gestión Avanzado</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Registrar Usuario</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <form class="form-group">
+                <div class="input-wrapper">
+                    <div class="input-box">
+                        <input type="text" id="nombre" placeholder="Nombre completo" required>
+                        <div class="input-border"></div>
+                        <span class="error-msg" id="error-nombre"></span>
+                    </div>
+                </div>
+                
+                <div class="input-wrapper">
+                    <div class="input-box">
+                        <input type="email" id="correo" placeholder="Email" required>
+                        <div class="input-border"></div>
+                        <span class="error-msg" id="error-correo"></span>
+                    </div>
+                </div>
+                
+                <button type="button" onclick="agregarUsuario()" class="btn-cyber">
+                    <span class="btn-text">[ AGREGAR ]</span>
+                    <span class="btn-glow"></span>
+                </button>
+                
+                <div class="success-msg" id="success-msg"></div>
+            </form>
+        </div>
+
+        <div class="list-container">
+            <div class="list-header">
+                <h2>Base de Datos</h2>
+                <div class="header-line"></div>
+            </div>
+            
+            <div id="lista" class="users-grid"></div>
+            
+            <div id="empty-state" class="empty-state">
+                <div class="empty-icon">&#8709;</div>
+                <p>Sistema vacio - Registra usuarios para iniciar</p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+:root {
+    --neon-cyan: #00d4ff;
+    --neon-magenta: #ff006e;
+    --neon-lime: #39ff14;
+    --neon-purple: #b300ff;
+    --dark-bg: #0a0e27;
+    --dark-secondary: #1a1f3a;
+    --dark-tertiary: #252d47;
+    --text-primary: #e0e0ff;
+    --text-secondary: #a8afd7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.background-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-lights::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: float 8s ease-in-out infinite;
+}
+
+.background-lights::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 0, 110, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.header-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 500px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.1;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.header {
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.header-content h1 {
+    font-size: 4em;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.9), 0 0 24px rgba(0, 212, 255, 0.6);
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+}
+
+.glow-text {
+    text-shadow: 0 0 6px var(--neon-cyan), 0 0 12px var(--neon-cyan);
+    filter: none;
+}
+
+.tagline {
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.form-container,
+.list-container {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before,
+.list-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-cyan), transparent);
+}
+
+.form-header,
+.list-header {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.form-header h2,
+.list-header h2 {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: var(--neon-cyan);
+    font-weight: 700;
+}
+
+.header-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    border-radius: 2px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-box {
+    position: relative;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(37, 45, 71, 0.5);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
+    color: var(--text-secondary);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    background: rgba(37, 45, 71, 0.8);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3), inset 0 0 15px rgba(0, 212, 255, 0.05);
+}
+
+input[type="text"]:invalid:not(:placeholder-shown),
+input[type="email"]:invalid:not(:placeholder-shown) {
+    border-color: var(--neon-magenta);
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+}
+
+.input-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    transition: width 0.3s ease;
+}
+
+input:focus ~ .input-border {
+    width: 100%;
+}
+
+.error-msg {
+    color: var(--neon-magenta);
+    font-size: 0.8em;
+    margin-top: 5px;
+    min-height: 18px;
+    display: block;
+    text-shadow: 0 0 5px rgba(255, 0, 110, 0.5);
+}
+
+.btn-cyber {
+    position: relative;
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-cyber:hover {
+    box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px rgba(0, 212, 255, 0.2);
+    color: var(--dark-bg);
+    background: var(--neon-cyan);
+}
+
+.btn-cyber:active {
+    box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 30px rgba(0, 212, 255, 0.3);
+}
+
+.success-msg {
+    color: var(--neon-lime);
+    font-size: 0.9em;
+    padding: 12px;
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid var(--neon-lime);
+    border-radius: 4px;
+    text-align: center;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 10px var(--neon-lime);
+}
+
+.users-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.usuario-card {
+    background: rgba(37, 45, 71, 0.5);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.usuario-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.usuario-card:hover::before {
+    left: 100%;
+}
+
+.usuario-card:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.usuario-nombre {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--neon-cyan);
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.usuario-correo {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    word-break: break-all;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.btn-delete {
+    background: transparent;
+    color: var(--neon-magenta);
+    border: 1px solid var(--neon-magenta);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-delete:hover {
+    box-shadow: 0 0 15px var(--neon-magenta), inset 0 0 15px rgba(255, 0, 110, 0.2);
+    background: rgba(255, 0, 110, 0.2);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-secondary);
+    font-size: 1.1em;
+}
+
+.empty-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: var(--neon-cyan);
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-content h1 {
+        font-size: 2.5em;
+        letter-spacing: 4px;
+    }
+    
+    .form-container,
+    .list-container {
+        padding: 25px;
+    }
+}
