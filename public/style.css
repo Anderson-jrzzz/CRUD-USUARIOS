@@ -345,23 +345,43 @@ input:focus ~ .input-border {
 }
 
 .btn-edit {
-    background: transparent;
-    color: var(--neon-lime);
-    border: 1px solid var(--neon-lime);
-    padding: 6px 12px;
+    background: rgba(57, 255, 20, 0.20);
+    color: #000;
+    border: 2px solid #00ff9f;
+    padding: 6px 14px;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     font-family: 'Courier New', monospace;
     font-size: 0.85em;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
 }
 
 .btn-edit:hover {
-    box-shadow: 0 0 15px var(--neon-lime), inset 0 0 15px rgba(57, 255, 20, 0.2);
-    background: rgba(57, 255, 20, 0.2);
+    background: rgba(57, 255, 20, 0.8);
+    color: #081b13;
+    border-color: #00ff7d;
+    box-shadow: 0 0 18px #00ff9f, inset 0 0 14px rgba(57, 255, 20, 0.5);
+}
+
+.btn-test {
+    margin-left: 12px;
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid var(--neon-cyan);
+    background: rgba(0, 212, 255, 0.12);
+    color: var(--neon-cyan);
+    font-size: 0.75em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+.btn-test:hover {
+    background: rgba(0, 212, 255, 0.35);
 }
 
 .btn-delete {
