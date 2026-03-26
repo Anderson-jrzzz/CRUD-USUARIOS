@@ -72,7 +72,10 @@ async function obtenerUsuarios() {
             card.innerHTML = `
                 <div class="usuario-nombre">> ${user.nombre}</div>
                 <div class="usuario-correo">${user.correo}</div>
-                <button class="btn-delete" onclick="eliminar(${user.id})">[ Eliminar ]</button>
+                <div class="usuario-actions">
+                    <button class="btn-edit" onclick="editarUsuario(${user.id}, '${user.nombre}', '${user.correo}')">[ EDITAR ]</button>
+                    <button class="btn-delete" onclick="eliminar(${user.id})">[ ELIMINAR ]</button>
+                </div>
             `;
             lista.appendChild(card);
         });
@@ -134,6 +137,42 @@ async function eliminar(id) {
         }
         
         mostrarMensaje("[-] Usuario eliminado del sistema");
+        obtenerUsuarios();
+    } catch (error) {
+        mostrarMensaje(">> ERROR: Fallo la conexion", "error");
+        console.error(error);
+    }
+}
+
+// EDITAR
+async function editarUsuario(id, nombreActual, correoActual) {
+    const nuevoNombre = prompt("Editar nombre:", nombreActual);
+    const nuevoCorreo = prompt("Editar email:", correoActual);
+    
+    if (!nuevoNombre || !nuevoCorreo) {
+        mostrarMensaje(">> Operacion cancelada", "error");
+        return;
+    }
+    
+    if (!validarInputs(nuevoNombre, nuevoCorreo)) {
+        return;
+    }
+    
+    try {
+        const res = await fetch(`${API}/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ nombre: nuevoNombre, correo: nuevoCorreo })
+        });
+        
+        if (!res.ok) {
+            mostrarMensaje(">> ERROR: No se pudo actualizar", "error");
+            return;
+        }
+        
+        mostrarMensaje("[*] Usuario actualizado exitosamente");
         obtenerUsuarios();
     } catch (error) {
         mostrarMensaje(">> ERROR: Fallo la conexion", "error");
