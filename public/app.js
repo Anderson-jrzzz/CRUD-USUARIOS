@@ -69,14 +69,37 @@ async function obtenerUsuarios() {
         data.forEach(user => {
             const card = document.createElement("div");
             card.className = "usuario-card";
-            card.innerHTML = `
-                <div class="usuario-nombre">> ${user.nombre}</div>
-                <div class="usuario-correo">${user.correo}</div>
-                <div class="usuario-actions">
-                    <button class="btn-edit" onclick="editarUsuario(${user.id}, '${user.nombre}', '${user.correo}')">[ EDITAR ]</button>
-                    <button class="btn-delete" onclick="eliminar(${user.id})">[ ELIMINAR ]</button>
-                </div>
-            `;
+
+            const nombreElem = document.createElement("div");
+            nombreElem.className = "usuario-nombre";
+            nombreElem.textContent = `> ${user.nombre}`;
+
+            const correoElem = document.createElement("div");
+            correoElem.className = "usuario-correo";
+            correoElem.textContent = user.correo;
+
+            const actions = document.createElement("div");
+            actions.className = "usuario-actions";
+
+            const btnEditar = document.createElement("button");
+            btnEditar.className = "btn-edit";
+            btnEditar.textContent = "[ EDITAR ]";
+            btnEditar.addEventListener("click", () => {
+                editarUsuario(user.id, user.nombre, user.correo);
+            });
+
+            const btnEliminar = document.createElement("button");
+            btnEliminar.className = "btn-delete";
+            btnEliminar.textContent = "[ ELIMINAR ]";
+            btnEliminar.addEventListener("click", () => {
+                eliminar(user.id);
+            });
+
+            actions.appendChild(btnEditar);
+            actions.appendChild(btnEliminar);
+            card.appendChild(nombreElem);
+            card.appendChild(correoElem);
+            card.appendChild(actions);
             lista.appendChild(card);
         });
     } catch (error) {
