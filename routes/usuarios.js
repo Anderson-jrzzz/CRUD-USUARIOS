@@ -5,6 +5,10 @@ const conexion = require('../conexion');
 // LISTAR
 router.get('/', (req, res) => {
     conexion.query('SELECT * FROM usuarios', (err, results) => {
+        if (err) {
+            console.log("Error LISTAR:", err);
+            return res.status(500).json({ error: "Error al listar" });
+        }
         res.json(results);
     });
 });
@@ -12,10 +16,19 @@ router.get('/', (req, res) => {
 // INSERTAR
 router.post('/add', (req, res) => {
     const { nombre, correo } = req.body;
+
+    console.log("📥 Datos:", nombre, correo);
+
     conexion.query(
         'INSERT INTO usuarios(nombre, correo) VALUES (?, ?)',
         [nombre, correo],
-        () => res.send("Usuario agregado")
+        (err, result) => {
+            if (err) {
+                console.log("Error INSERT:", err);
+                return res.status(500).json({ error: "Error al insertar" });
+            }
+            res.json({ mensaje: "Usuario agregado" });
+        }
     );
 });
 
@@ -27,7 +40,13 @@ router.put('/update/:id', (req, res) => {
     conexion.query(
         'UPDATE usuarios SET nombre=?, correo=? WHERE id=?',
         [nombre, correo, id],
-        () => res.send("Usuario actualizado")
+        (err) => {
+            if (err) {
+                console.log("Error UPDATE:", err);
+                return res.status(500).json({ error: "Error al actualizar" });
+            }
+            res.json({ mensaje: "Usuario actualizado" });
+        }
     );
 });
 
@@ -38,7 +57,13 @@ router.delete('/delete/:id', (req, res) => {
     conexion.query(
         'DELETE FROM usuarios WHERE id=?',
         [id],
-        () => res.send("Usuario eliminado")
+        (err) => {
+            if (err) {
+                console.log("Error DELETE:", err);
+                return res.status(500).json({ error: "Error al eliminar" });
+            }
+            res.json({ mensaje: "Usuario eliminado" });
+        }
     );
 });
 
