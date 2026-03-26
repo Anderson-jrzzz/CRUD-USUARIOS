@@ -1,4 +1,4 @@
-const API = "/usuarios";
+const API = window.location.origin + "/usuarios";
 
 // VALIDAR INPUTS
 function validarInputs(nombre, correo) {
