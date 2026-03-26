@@ -231,32 +231,8 @@ async function eliminar(id) {
 
 // EDITAR
 function editarUsuario(id, nombreActual, correoActual) {
-    console.log("[app.js] editarUsuario con modo formulario", id, nombreActual, correoActual);
     entrarModoEdicion(id, nombreActual, correoActual);
 }
 
-// Test editar primer usuario (fuerza ejecución edit) y carga inicial
-async function testEditarPrimerUsuario() {
-    try {
-        const res = await fetch(API);
-        const data = await res.json();
-        if (!data || data.length === 0) {
-            mostrarMensaje(">> No hay usuarios para editar", "error");
-            return;
-        }
-        const first = data[0];
-        editarUsuario(first.id, first.nombre, first.correo);
-    } catch (error) {
-        console.error("Error en testEditarPrimerUsuario", error);
-        mostrarMensaje(">> ERROR: no se pudo cargar usuarios para test", "error");
-    }
-}
-
+// Cargar usuarios al iniciar
 obtenerUsuarios();
-
-document.addEventListener('DOMContentLoaded', () => {
-    const testBtn = document.getElementById('boton-test-editar');
-    if (testBtn) {
-        testBtn.addEventListener('click', testEditarPrimerUsuario);
-    }
-});
